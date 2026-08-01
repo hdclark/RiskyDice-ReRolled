@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#101510</color>
+    <color name="surface">#182018</color>
+    <color name="surface_raised">#222D22</color>
+    <color name="risk_green">#67E480</color>
+    <color name="risk_green_dark">#163D20</color>
+    <color name="text_primary">#F1F7F1</color>
+    <color name="text_secondary">#B9C9B9</color>
+    <color name="error">#FF8A80</color>
+    <color name="transparent">#00000000</color>
+</resources>
