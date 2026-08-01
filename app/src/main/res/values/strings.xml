@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Risky Dice: Re-Rolled</string>
+    <string name="tagline">Risk battle rolls and sustained-skirmish sampling</string>
+    <string name="roll_once">Roll all matchups</string>
+    <string name="estimate_round">Estimate round losses</string>
+    <string name="battle_hint">Attacking units v defending units, e.g. 10v5</string>
+    <string name="simulate_battle">Simulate battle</string>
+    <string name="clear">Clear</string>
+    <string name="help">Help</string>
+    <string name="working">Sampling…</string>
+</resources>
