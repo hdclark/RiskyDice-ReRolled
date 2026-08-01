@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RiskyDice" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:colorAccent">@color/risk_green</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <style name="ResultCard">
+        <item name="android:background">@drawable/result_card</item>
+        <item name="android:textColor">@color/risk_green</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:minHeight">156dp</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+</resources>
