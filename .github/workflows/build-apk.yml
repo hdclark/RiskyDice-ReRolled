@@ -47,12 +47,40 @@ jobs:
         with:
           gradle-version: '9.5.0'
 
-      - name: Decode optional release keystore
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+      - name: Prepare optional release signing
+        shell: bash
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/riskydice-release.jks"
+          set -euo pipefail
+
+          present=0
+          for value in \
+            "$ANDROID_KEYSTORE_BASE64" \
+            "$ANDROID_KEYSTORE_PASSWORD" \
+            "$ANDROID_KEY_ALIAS" \
+            "$ANDROID_KEY_PASSWORD"; do
+            if [[ -n "$value" ]]; then
+              present=$((present + 1))
+            fi
+          done
+
+          if [[ "$present" -eq 0 ]]; then
+            echo "Release signing secrets are not configured; assembleRelease will produce an unsigned APK."
+            exit 0
+          fi
+
+          if [[ "$present" -ne 4 ]]; then
+            echo "::error::Release signing is partially configured. Set all four ANDROID_KEYSTORE_* secrets or remove all of them."
+            exit 1
+          fi
+
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" \
+            | base64 --decode \
+            > "$RUNNER_TEMP/riskydice-release.jks"
 
       - name: Run tests, lint, and build debug plus release APKs
         env:
