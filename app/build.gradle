@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.hdclark.riskydice.rerolled'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId 'com.hdclark.riskydice.rerolled'
+        minSdk 23
+        targetSdk 37
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    def keystorePath = System.getenv('ANDROID_KEYSTORE_PATH')
+    def keystorePassword = System.getenv('ANDROID_KEYSTORE_PASSWORD')
+    def keyAliasValue = System.getenv('ANDROID_KEY_ALIAS')
+    def keyPasswordValue = System.getenv('ANDROID_KEY_PASSWORD')
+    if (keystorePath && keystorePassword && keyAliasValue && keyPasswordValue) {
+        signingConfigs {
+            ciRelease {
+                storeFile file(keystorePath)
+                storePassword keystorePassword
+                keyAlias keyAliasValue
+                keyPassword keyPasswordValue
+            }
+        }
+        buildTypes.release.signingConfig = signingConfigs.ciRelease
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
