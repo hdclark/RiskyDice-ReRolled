@@ -1,3 +1,4 @@
+# Canonical build path for all debug and release APKs.
 name: Build APKs
 
 'on':
